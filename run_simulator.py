@@ -5,6 +5,15 @@ from source.model import CovidModel
 from source.scenario import CovidScenario
 
 if __name__ == "__main__":
+
+    import random
+    from Melodie import set_seed
+    import numpy as np
+
+    random.seed(4)
+    set_seed(4)
+    np.random.seed(4)
+
     simulator = Simulator(
         config=config,
         model_cls=CovidModel,
