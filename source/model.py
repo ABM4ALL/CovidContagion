@@ -1,6 +1,9 @@
+import random
 from typing import TYPE_CHECKING
 
 from Melodie import Model
+from Melodie import set_seed
+
 from source import data_info
 from source.agent import CovidAgent
 from source.data_collector import CovidDataCollector
@@ -15,6 +18,8 @@ class CovidModel(Model):
     scenario: "CovidScenario"
 
     def create(self):
+        random.seed(4)
+        set_seed(4)
         self.agents: "AgentList[CovidAgent]" = self.create_agent_list(CovidAgent)
         self.environment = self.create_environment(CovidEnvironment)
         self.data_collector = self.create_data_collector(CovidDataCollector)

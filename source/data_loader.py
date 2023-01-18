@@ -1,8 +1,9 @@
+import random
 from typing import TYPE_CHECKING, Dict, Any
 
-import numpy as np
-
 from Melodie import DataLoader
+from Melodie import set_seed
+
 from source import data_info
 
 if TYPE_CHECKING:
@@ -20,18 +21,20 @@ class CovidDataLoader(DataLoader):
     @staticmethod
     def init_health_state(scenario: "CovidScenario"):
         state = 0
-        if np.random.uniform(0, 1) <= scenario.initial_infected_percentage:
+        if random.uniform(0, 1) <= scenario.initial_infected_percentage:
             state = 1
         return state
 
     @staticmethod
     def init_age_group(scenario: "CovidScenario"):
         age_group = 0
-        if np.random.uniform(0, 1) > scenario.young_percentage:
+        if random.uniform(0, 1) > scenario.young_percentage:
             age_group = 1
         return age_group
 
     def generate_agent_dataframe(self):
+        random.seed(4)
+        set_seed(4)
         with self.dataframe_generator(
             data_info.agent_params, lambda scenario: scenario.agent_num
         ) as g:
