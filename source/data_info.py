@@ -17,25 +17,26 @@ simulator_scenarios = DataFrameInfo(
 )
 
 id_health_state = DataFrameInfo(
-    df_name="ID_HealthState",
+    df_name="id_health_state",
     file_name="ID_HealthState.xlsx",
     columns={
         "id": sqlalchemy.Integer(),
-        "name": sqlalchemy.String()
+        "name": sqlalchemy.Text()
     },
 )
 
 id_age_group = DataFrameInfo(
-    df_name="ID_AgeGroup",
+    df_name="id_age_group",
     file_name="ID_AgeGroup.xlsx",
     columns={
         "id": sqlalchemy.Integer(),
-        "name": sqlalchemy.String(),
+        "name": sqlalchemy.Text(),
     },
+    engine="melodie-table"
 )
 
 transition_prob = DataFrameInfo(
-    df_name="Parameter_AgeGroup_TransitionProb",
+    df_name="parameter_agegroup_transitionprob",
     file_name="Parameter_AgeGroup_TransitionProb.xlsx",
     columns={
         "id_age_group": sqlalchemy.Integer(),
@@ -43,10 +44,11 @@ transition_prob = DataFrameInfo(
         "prob_s1_s2": sqlalchemy.Float(),
         "prob_s1_s3": sqlalchemy.Float(),
     },
+    engine="melodie-table"
 )
 
 agent_params = DataFrameInfo(
-    df_name="Parameter_AgentParams",
+    df_name="parameter_agentparams",
     columns={
         "id_scenario": sqlalchemy.Integer(),
         "id": sqlalchemy.Integer(),

@@ -14,15 +14,22 @@ if TYPE_CHECKING:
 class CovidModel(Model):
     scenario: "CovidScenario"
 
+    # def load(self):
+    #      self.load_dataframe(data_info.transition_prob)
+
     def create(self):
-        self.agents: "AgentList[CovidAgent]" = self.create_agent_list(CovidAgent)
+        self.agents: "AgentList[CovidAgent]" = self.create_agent_list(
+            CovidAgent)
         self.environment = self.create_environment(CovidEnvironment)
         self.data_collector = self.create_data_collector(CovidDataCollector)
 
     def setup(self):
+        self.scenario.setup_data()  # TODO: 生成agent_params表, 具有agent_params属性
+        # self.scenario
         self.agents.setup_agents(
             agents_num=self.scenario.agent_num,
-            params_df=self.scenario.get_dataframe(data_info.agent_params),
+            # params_df=self.scenario.get_dataframe(data_info.agent_params),
+            params_df=self.scenario.agent_params,
         )
 
     def run(self):
@@ -31,4 +38,4 @@ class CovidModel(Model):
             self.environment.agents_health_state_transition(self.agents)
             self.environment.calc_population_infection_state(self.agents)
             self.data_collector.collect(period)
-        self.data_collector.save()
+            self.data_collector.save()
